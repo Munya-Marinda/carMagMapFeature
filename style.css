@@ -1,3 +1,14 @@
 #searchIcon:hover {
   opacity: 0.5;
 }
+
+#dealershipPopup{
+  overflow: hidden!important;
+  white-space: nowrap;
+  margin: auto;
+   background: white;
+   width: 250px;
+   height: 65px;
+   display: flex;
+   align-items: center;
+}

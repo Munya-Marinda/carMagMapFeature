@@ -10,7 +10,7 @@ const arrRegions = [
   "Mpumalanga",
   "Northern Cape",
   "North West",
-  "Western Cape"
+  "Western Cape",
 ];
 
 const RegionData = [
@@ -23,33 +23,33 @@ const RegionData = [
         dealerName: "Auto Pedigree East London",
         location: { lat: -32.9588026, lng: 27.9326508 },
         totalCars: 14,
-        logoURL: "./assets/dealership_assets/circle/auto_pedigree.png"
+        logoURL: "./assets/dealership_assets/circle/auto_pedigree.png",
       },
       {
         dealerName: "Auto Pedigree Eastern Cape",
         location: { lat: -32.7656184, lng: 26.0495569 },
         totalCars: 164,
-        logoURL: "./assets/dealership_assets/circle/auto_pedigree.png"
+        logoURL: "./assets/dealership_assets/circle/auto_pedigree.png",
       },
       {
         dealerName: "Izuzu Meyers Motors King Williams Town",
         location: { lat: -32.9186817, lng: 27.5163521 },
         totalCars: 21,
-        logoURL: "./assets/dealership_assets/circle/izuzu_meyers_car.png"
+        logoURL: "./assets/dealership_assets/circle/izuzu_meyers_car.png",
       },
       {
         dealerName: "Meyers Car Bazar",
         location: { lat: -33.0138502, lng: 27.9027218 },
         totalCars: 17,
-        logoURL: "./assets/dealership_assets/circle/izuzu_meyers_car.png"
+        logoURL: "./assets/dealership_assets/circle/izuzu_meyers_car.png",
       },
       {
         dealerName: "Ronnies Motors",
         location: { lat: -33.0138305, lng: 27.8346931 },
         totalCars: 10,
-        logoURL: "./assets/dealership_assets/circle/ronnies_motors.png"
-      }
-    ]
+        logoURL: "./assets/dealership_assets/circle/ronnies_motors.png",
+      },
+    ],
   },
   {
     regionName: "Free State",
@@ -60,21 +60,21 @@ const RegionData = [
         dealerName: "Auto Pedigree Bloemfontein Oliver Tambo",
         location: { lat: -29.1247446, lng: 26.2173738 },
         totalCars: 14,
-        logoURL: "./assets/dealership_assets/circle/auto_pedigree.png"
+        logoURL: "./assets/dealership_assets/circle/auto_pedigree.png",
       },
       {
         dealerName: "Auto Pedigree Bloemfontein Zastro",
         location: { lat: -29.113348, lng: 26.2181539 },
         totalCars: 15,
-        logoURL: "./assets/dealership_assets/circle/auto_pedigree.png"
+        logoURL: "./assets/dealership_assets/circle/auto_pedigree.png",
       },
       {
         dealerName: "Auto Pedigree Qwa-Qwa",
         location: { lat: -28.531306, lng: 28.829376 },
         totalCars: 12,
-        logoURL: "./assets/dealership_assets/circle/auto_pedigree.png"
-      }
-    ]
+        logoURL: "./assets/dealership_assets/circle/auto_pedigree.png",
+      },
+    ],
   },
   {
     regionName: "Gauteng",
@@ -85,15 +85,15 @@ const RegionData = [
         dealerName: "Autocad Cars",
         location: { lat: -26.0957812, lng: 28.0028578 },
         totalCars: 295,
-        logoURL: "./assets/dealership_assets/circle/standard_car_icon.png"
+        logoURL: "./assets/dealership_assets/circle/standard_car_icon.png",
       },
       {
         dealerName: "Auto Investments Centurion",
         location: { lat: -26.6793108, lng: 27.4983813 },
         totalCars: 157,
-        logoURL: "./assets/dealership_assets/circle/standard_car_icon.png"
-      }
-    ]
+        logoURL: "./assets/dealership_assets/circle/standard_car_icon.png",
+      },
+    ],
   },
   {
     regionName: "KwaZulu-Natal",
@@ -104,9 +104,9 @@ const RegionData = [
         dealerName: "Halfway Ford Waterfall",
         location: { lat: -29.7509046, lng: 30.8116776 },
         totalCars: 23,
-        logoURL: "./assets/dealership_assets/circle/standard_car_icon.png"
-      }
-    ]
+        logoURL: "./assets/dealership_assets/circle/standard_car_icon.png",
+      },
+    ],
   },
   {
     regionName: "Limpopo",
@@ -117,21 +117,21 @@ const RegionData = [
         dealerName: "Auto Pedigree Burgersfort",
         location: { lat: -24.684232, lng: 30.334904 },
         totalCars: 10,
-        logoURL: "./assets/dealership_assets/circle/standard_car_icon.png"
+        logoURL: "./assets/dealership_assets/circle/standard_car_icon.png",
       },
       {
         dealerName: "Auto Pedigree Groblersdal",
         location: { lat: -25.171794350469916, lng: 29.391719878212463 },
         totalCars: 15,
-        logoURL: "./assets/dealership_assets/circle/auto_pedigree.png"
+        logoURL: "./assets/dealership_assets/circle/auto_pedigree.png",
       },
       {
         dealerName: "Auto Pedigree Polokwane South",
         location: { lat: -23.9157526, lng: 29.4423274 },
         totalCars: 15,
-        logoURL: "./assets/dealership_assets/circle/auto_pedigree.png"
-      }
-    ]
+        logoURL: "./assets/dealership_assets/circle/auto_pedigree.png",
+      },
+    ],
   },
   {
     regionName: "Mpumalanga",
@@ -142,15 +142,15 @@ const RegionData = [
         dealerName: "Auto Italia",
         location: { lat: -25.7720133, lng: 29.4715153 },
         totalCars: 18,
-        logoURL: "./assets/dealership_assets/circle/standard_car_icon.png"
+        logoURL: "./assets/dealership_assets/circle/standard_car_icon.png",
       },
       {
         dealerName: "Auto Pedigree Ermelo",
         location: { lat: -26.5373093, lng: 29.9875623 },
         totalCars: 11,
-        logoURL: "./assets/dealership_assets/circle/auto_pedigree.png"
-      }
-    ]
+        logoURL: "./assets/dealership_assets/circle/auto_pedigree.png",
+      },
+    ],
   },
   {
     regionName: "Northern Cape",
@@ -161,9 +161,9 @@ const RegionData = [
         dealerName: "Auto Pedigree Kimberley",
         location: { lat: -26.5373093, lng: 29.9875623 },
         totalCars: 12,
-        logoURL: "./assets/dealership_assets/circle/auto_pedigree.png"
-      }
-    ]
+        logoURL: "./assets/dealership_assets/circle/auto_pedigree.png",
+      },
+    ],
   },
   {
     regionName: "North West",
@@ -174,9 +174,9 @@ const RegionData = [
         dealerName: "Auto Pedigree Brits",
         location: { lat: -25.6300674, lng: 27.7787409 },
         totalCars: 19,
-        logoURL: "./assets/dealership_assets/circle/auto_pedigree.png"
-      }
-    ]
+        logoURL: "./assets/dealership_assets/circle/auto_pedigree.png",
+      },
+    ],
   },
   {
     regionName: "Western Cape",
@@ -187,16 +187,16 @@ const RegionData = [
         dealerName: "Alterior Auto",
         location: { lat: -33.9067444, lng: 18.580001 },
         totalCars: 11,
-        logoURL: "./assets/dealership_assets/circle/standard_car_icon.png"
+        logoURL: "./assets/dealership_assets/circle/standard_car_icon.png",
       },
       {
         dealerName: "Auto Pedigree Bellville",
         location: { lat: -33.9023769, lng: 18.6072502 },
         totalCars: 10,
-        logoURL: "./assets/dealership_assets/circle/auto_pedigree.png"
-      }
-    ]
-  }
+        logoURL: "./assets/dealership_assets/circle/auto_pedigree.png",
+      },
+    ],
+  },
 ];
 
 //
@@ -220,6 +220,7 @@ class DealershipMap {
     this.map = null; // Google map object
     this.RegionMarkers = []; // contains array of region markers
     this.DealershipMarkers = []; // contains array of dealership markers
+    this.DealershipInfoWindow = []; // contains array of infoWindows
   }
 
   //
@@ -228,7 +229,7 @@ class DealershipMap {
     // send props data to create new map
     var mapProp = {
       center: new google.maps.LatLng(-28.6743815, 25.9448766),
-      zoom: 6
+      zoom: 6,
     };
     // create and load map
     this.loadMap(mapProp);
@@ -237,9 +238,8 @@ class DealershipMap {
     this.populateRegionMapMarkers();
 
     // load the Province buttons
-    document.getElementById(
-      "regionButtons"
-    ).innerHTML = this.getProvinceButtons();
+    document.getElementById("regionButtons").innerHTML =
+      this.getProvinceButtons();
   }
 
   //
@@ -259,25 +259,39 @@ class DealershipMap {
         region.dealerships.forEach((dealership) => {
           // add to array of maker locations
           arrMarkerLocations.push(dealership.location);
-          // create and config dealership logo/icon
-          var logo = {
-            url: dealership.logoURL, // url
-            scaledSize: new google.maps.Size(50, 50) // size
-          };
+          
           // create dealership marker
           var marker = new google.maps.Marker({
             position: dealership.location,
             map: this.map,
             title: dealership.dealerName,
-            label: dealership.totalCars.toString(),
-            icon: logo,
-            animation: google.maps.Animation.DROP
+            // label: dealership.totalCars.toString(),
+            animation: google.maps.Animation.DROP,
           });
           // add dealership markers to array
           this.DealershipMarkers.push(marker);
+          
+          // create info window
+          var infoWindow = new google.maps.InfoWindow()
+          
+          // content for the info window
+          var infoWindowContent = ' <div id="dealershipPopup"> <img src="'+dealership.logoURL+'" alt="dealershipImage" style="width: 40px; height: 40px"  /> <div style="margin-left: 5px; width: 195px;"> <div style="padding: 5px;" > <span style="font-weight: bold; font-size: 15px">'+dealership.dealerName+'</span> </div> <div style=" display: flex; justify-content: space-between; padding-bottom: 5px; padding-left: 5px;padding-right: 5px;" > <span style="font-size: 10px; padding: 5px; border-radius: 5px; background-color: lightgray">TOTAL CARS: '+dealership.totalCars.toString()+'</span> <span> <a href="https://www.google.com" style="" >website</a > </span> </div> </div> </div>';
+ 
+          // add to array of infoWindows
+          this.DealershipInfoWindow.push(infoWindow); 
+
           // onclick() event
           marker.addListener("click", (event) => {
-            console.log("Dealership clicked: " + event.domEvent.target.title);
+          
+            // close other infoWindows
+            this.DealershipInfoWindow.forEach((window) => {
+              window.close();
+            });
+
+            // show clicked marker's infoWindow
+            infoWindow.setContent(infoWindowContent);
+            infoWindow.open(this.map, marker);
+            infoWindow.focus();
           });
         });
       }
@@ -329,7 +343,7 @@ class DealershipMap {
       var regionIcon = {
         url: region.iconURL.toString(), // url,
         alt: "debug_westerncape",
-        scaledSize: new google.maps.Size(40, 50) // size
+        scaledSize: new google.maps.Size(40, 50), // size
       };
       // create marker
       var marker = new google.maps.Marker({
@@ -338,14 +352,14 @@ class DealershipMap {
         title: region.regionName,
         // label: region.regionName,
         icon: regionIcon,
-        animation: google.maps.Animation.DROP
+        animation: google.maps.Animation.DROP,
       });
       // add marker to array of region markers
       this.RegionMarkers.push(marker);
       // onclick event of marker to open region
       marker.addListener("click", (event) => {
-        // console.log(event.domEvent.path[1].title);
-        this.openMapToRegion(event.domEvent.path[1].title);
+        // console.log(event.domEvent.target.parentNode.title);
+        this.openMapToRegion(event.domEvent.target.parentNode.title );
       });
     });
   }
@@ -432,10 +446,3 @@ function openNorthWest() {
 function openWesternCape() {
   dealershipMap.openMapToRegion("Western Cape");
 }
-
-//
-//
-//
-// Google Map API
-//
-//
