@@ -1,17 +1,6 @@
 //
 //
 // Dummy Data
-const arrRegions = [
-  "Eastern Cape",
-  "Free State",
-  "Gauteng",
-  "KwaZulu-Natal",
-  "Limpopo",
-  "Mpumalanga",
-  "Northern Cape",
-  "North West",
-  "Western Cape",
-];
 
 const RegionData = [
   {
@@ -214,14 +203,22 @@ const RegionData = [
 
 // Class to manage map functions
 class DealershipMap {
-  constructor(regions, region_data) {
-    this.Regions = regions; // array of region names - to be replaces with region_data
+  constructor( region_data) { 
     this.RegionData = region_data; // array of region data
     this.map = null; // Google map object
     this.RegionMarkers = []; // contains array of region markers
     this.DealershipMarkers = []; // contains array of dealership markers
     this.DealershipInfoWindow = []; // contains array of infoWindows
-  }
+    // stores user activity on the map
+    this.MapState = {
+      // "region_view" or "dealership_view"
+      state: "region_view",
+      // clicks in each new state
+      num_of_clicks: 0,
+      // regions opened during session
+      num_of_regions_browsed: 0 ,
+    };
+  } // constructor ends
 
   //
   // Set of functions executed when the document loads
@@ -240,11 +237,16 @@ class DealershipMap {
     // load the Province buttons
     document.getElementById("regionButtons").innerHTML =
       this.getProvinceButtons();
-  }
+
+    // place the zoom-out-to-region button position in its parent
+    var button = document.getElementById("zoomOutButton");
+  } // docReady ends
 
   //
   // opens map region
   openMapToRegion(region_Name) {
+    this.MapState.num_of_regions_browsed++;
+        console.log("Regions browsed >>>"+this.MapState.num_of_regions_browsed);
     // array of marker locations - to reset the map window to plotted makers
     var arrMarkerLocations = [];
     // iterate through regions
@@ -254,12 +256,16 @@ class DealershipMap {
         // remove region markers
         this.RegionMarkers.forEach((marker) => {
           marker.setMap(null);
+          // Change map state
+          this.MapState.state = "dealership_view";
+          // reset clicks in view
+          this.manageClicks(0); // reset to 0
         });
         // iterate through dealerships
         region.dealerships.forEach((dealership) => {
           // add to array of maker locations
           arrMarkerLocations.push(dealership.location);
-          
+
           // create dealership marker
           var marker = new google.maps.Marker({
             position: dealership.location,
@@ -270,19 +276,25 @@ class DealershipMap {
           });
           // add dealership markers to array
           this.DealershipMarkers.push(marker);
-          
+
           // create info window
-          var infoWindow = new google.maps.InfoWindow()
-          
+          var infoWindow = new google.maps.InfoWindow();
+
           // content for the info window
-          var infoWindowContent = ' <div id="dealershipPopup"> <img src="'+dealership.logoURL+'" alt="dealershipImage" style="width: 40px; height: 40px"  /> <div style="margin-left: 5px; width: 195px;"> <div style="padding: 5px;" > <span style="font-weight: bold; font-size: 15px">'+dealership.dealerName+'</span> </div> <div style=" display: flex; justify-content: space-between; padding-bottom: 5px; padding-left: 5px;padding-right: 5px;" > <span style="font-size: 10px; padding: 5px; border-radius: 5px; background-color: lightgray">TOTAL CARS: '+dealership.totalCars.toString()+'</span> <span> <a href="https://www.google.com" style="" >website</a > </span> </div> </div> </div>';
- 
+          var infoWindowContent =
+            ' <div id="dealershipPopup"> <img src="' +
+            dealership.logoURL +
+            '" alt="dealershipImage" style="width: 40px; height: 40px"  /> <div style="margin-left: 5px; width: 195px;"> <div style="padding: 5px;" > <span style="font-weight: bold; font-size: 15px">' +
+            dealership.dealerName +
+            '</span> </div> <div style=" display: flex; justify-content: space-between; padding-bottom: 5px; padding-left: 5px;padding-right: 5px;" > <span style="font-size: 10px; padding: 5px; border-radius: 5px; background-color: lightgray">TOTAL CARS: ' +
+            dealership.totalCars.toString() +
+            '</span> <span> <a href="https://www.google.com" style="" >website</a > </span> </div> </div> </div>';
+
           // add to array of infoWindows
-          this.DealershipInfoWindow.push(infoWindow); 
+          this.DealershipInfoWindow.push(infoWindow);
 
           // onclick() event
           marker.addListener("click", (event) => {
-          
             // close other infoWindows
             this.DealershipInfoWindow.forEach((window) => {
               window.close();
@@ -298,22 +310,22 @@ class DealershipMap {
     });
     // reset view to markers if markers > 0
     if (arrMarkerLocations.length > 0) {
-      this.resetBounds(arrMarkerLocations);
+      this.resetBounds(arrMarkerLocations, 8, 0);
     }
-  }
+  } // openMapToRegion ends
 
   //
   // Returns province buttons
   getProvinceButtons() {
     var innerHTML = "";
 
-    // Iterate through list of provinces and create a button for each
-    this.Regions.forEach((region) => {
+    // Iterate through list of provinces and create a button for each 
+    this.RegionData.forEach((region) => {
       innerHTML +=
         ' <button style="padding: 7px; margin-left:10px; border: 0px; border-radius: 10px; color: white; background-color: gray" type="button" onclick="open' +
-        region.replace(/\s/g, "").replace("-", "") +
+        region.regionName.replace(/\s/g, "").replace("-", "") +
         '()">' +
-        region +
+        region.regionName +
         "</button>";
     });
 
@@ -323,7 +335,7 @@ class DealershipMap {
     }
 
     return innerHTML;
-  }
+  } // getProvinceButtons ends
 
   //
   // loads map
@@ -332,7 +344,7 @@ class DealershipMap {
       document.getElementById("googleMap"),
       mapProp
     );
-  }
+  } // loadMap ends
 
   //
   // adds marker to map
@@ -358,15 +370,15 @@ class DealershipMap {
       this.RegionMarkers.push(marker);
       // onclick event of marker to open region
       marker.addListener("click", (event) => {
-        // console.log(event.domEvent.target.parentNode.title);
-        this.openMapToRegion(event.domEvent.target.parentNode.title );
+        this.openMapToRegion(event.domEvent.target.parentNode.title);
+        
       });
     });
-  }
+  } // populateRegionMapMarkers ends
 
   //
   // resets map view to mapped makers
-  resetBounds(locations) {
+  resetBounds(locations, zoom, panToIndex) {
     // create Google bounds object - used to set view to plotted markers
     var bounds = new google.maps.LatLngBounds();
 
@@ -377,25 +389,172 @@ class DealershipMap {
         bounds.extend(location);
       });
       // move map to region
-      this.map.panTo(locations[0]);
+      this.map.panTo(locations[panToIndex]);
       //  zoom into map
-      this.map.setZoom(8);
+      this.map.setZoom(zoom);
     } else {
       // ...else if we're given more than on location
-      bounds.extend(locations[0]);
+      bounds.extend(locations[panToIndex]);
       // move map to region
-      this.map.panTo(locations[0]);
+      this.map.panTo(locations[panToIndex]);
       // fit the map to bounds
       this.map.fitBounds(bounds);
       //  zoom into map
-      this.map.setZoom(10);
+      this.map.setZoom(zoom);
+    }
+  } // resetBounds ends
+
+  //
+  // slide "in" or "out" the zoom-out-to-region-button
+  showRegionsAnimation(type, parentID) {
+    // set the parent and button
+    var parent = document.getElementById(parentID);
+    var button = document.getElementById("zoomOutButton");
+    var buttonContainer = document.getElementById("zoomOutButton_container");
+
+    // get parent's width and put child against right side
+    const parentMiddleX = parent.clientWidth;
+
+    // get parent's height and calc where to place button
+    const parentMiddleY = parent.clientHeight;
+
+    switch (type) {
+      case "in":
+        // move button to parents middle
+        button.style.left = parentMiddleX - button.clientWidth + "px";
+        button.style.top = parentMiddleY / 0.9 + "px";
+
+        // set opacity of button container (for fade in effect)
+        buttonContainer.style.display = "block";
+        buttonContainer.style.opacity = 0;
+
+        // id of the animation
+        var slideIn_id = null;
+
+        // value to animate
+        var leftValue = parentMiddleX;
+
+        // clear the animation - safety
+        clearInterval(slideIn_id);
+
+        // start the animation
+        slideIn_id = setInterval(slideIn, 5);
+
+        // actual animation
+        function slideIn() {
+          // when to stop animation
+          if (leftValue < parentMiddleX - button.clientWidth * 2) {
+            // stop animation
+            clearInterval(slideIn_id);
+          } else {
+            // move in effect
+            leftValue = parseInt(button.style.left) - 5;
+            button.style.left = leftValue + "px";
+            buttonContainer.style.opacity =
+              parseFloat(buttonContainer.style.opacity) + 0.04;
+          }
+        }
+
+        break;
+
+      case "out":
+        // set opacity of button container (for fade out effect)
+        buttonContainer.style.opacity = 1;
+
+        // id of the animation
+        var slideOut_id = null;
+
+        // value to animate
+        var leftValue = parentMiddleX;
+
+        // clear the animation - safety
+        clearInterval(slideOut_id);
+
+        // start the animation
+        slideOut_id = setInterval(slideOut, 10);
+
+        // actual animation
+        function slideOut() {
+          // when to stop animation
+          if (leftValue > parentMiddleX) {
+            // stop animation
+            clearInterval(slideOut_id);
+          } else {
+            // move in effect
+            leftValue = parseInt(button.style.left) + 5;
+            button.style.left = leftValue + "px";
+            // fade in effect
+            buttonContainer.style.opacity =
+              parseFloat(buttonContainer.style.opacity) - 0.04;
+          }
+        }
+
+        // place region markers
+        this.RegionMarkers.forEach((marker) => {
+          marker.setMap(this.map);
+        });
+
+        // remove dealership-region markers
+        this.DealershipMarkers.forEach((marker) => {
+          marker.setMap(null);
+        });
+
+        // get lat and lng
+        var locations = []; // array of locations to set the map view
+        this.RegionData.forEach((region) => {
+          locations.push(region.regionLocation);
+        });
+
+        // reset map view
+        this.resetBounds(locations, 6, 1);
+
+        // Change map state
+        this.MapState.state = "region_view";
+
+        // reset clicks in view
+        this.manageClicks(0); // reset to 0
+
+        break;
+
+      default:
+        break;
     }
   }
-}
+
+  //
+  // reset/increment/decrement user click
+  manageClicks(number) {
+    // (number = 0) resets to 0
+    if (number === 0) {
+      this.MapState.num_of_clicks = number;
+    } else {
+      // incr or decr
+      this.MapState.num_of_clicks += number;
+    }
+
+    // the state and number of clicks determine certain functions
+    const clicks = this.MapState.num_of_clicks
+    const state = this.MapState.state
+    const region = this.MapState.num_of_regions_browsed
+
+    // click and state
+    if (clicks === 4 && state === "dealership_view" && region === 1 ) {
+      // animates in the button
+      dealershipMap.showRegionsAnimation("in", "googleMapContainer");
+    }
+
+    if (region === 2 && state === "dealership_view" ) {
+      // animates in the button
+      dealershipMap.showRegionsAnimation("in", "googleMapContainer");
+    }
+
+
+  }
+} // DealershipMap ends
 
 //
-// new Class Object
-const dealershipMap = new DealershipMap(arrRegions, RegionData);
+// create new Class Object
+const dealershipMap = new DealershipMap(RegionData);
 
 //
 //
@@ -445,4 +604,24 @@ function openNorthWest() {
 }
 function openWesternCape() {
   dealershipMap.openMapToRegion("Western Cape");
+}
+
+//
+//
+//
+//
+// Debug!
+//
+
+function test() {
+  dealershipMap.showRegionsAnimation("in", "googleMapContainer");
+}
+
+function ShowRegionMarkers() {
+  dealershipMap.showRegionsAnimation("out", "googleMapContainer");
+}
+
+function MapContainer() {
+  console.log("googleMapContainer clicked!");
+  dealershipMap.manageClicks(+1)
 }
