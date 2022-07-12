@@ -11,7 +11,7 @@
     <title>test</title>
   </head>
   <body style="background: white">
-    <div style="display: flex;">
+    <div style="display: flex">
       <div
         id="testButton"
         style="
@@ -46,9 +46,36 @@
     </div>
 
     <div id="testParent">
-      <div id="zoomOutButton_container">
-        <div id="zoomOutButton">REGION VIEW</div>
+      <div class="mapButtonsContainer" id="zoomOutButton_container">
+        <div
+          class="mapButtons"
+          id="zoomOutButton"
+          onclick="ShowRegionMarkers()"
+        >
+          <img
+            style="width: 15px; margin-right: 7px"
+            src="./assets/svg/regionsicon1.svg"
+            alt="regionsicon1.svg"
+            onclick="ShowRegionMarkers()"
+            />
+          REGION VIEW
+        </div>
+        <hr style="opacity: 50%" />
+        <div
+          class="mapButtons"
+          id="getUserLocationButton"
+          onclick="userGivePermission()"
+        >
+          <img
+            style="width: 15px; margin-right: 7px"
+            src="./assets/svg/userlocation4.svg"
+            alt="userlocation3.svg"
+            onclick="userGivePermission()"
+          />
+          MY LOCATION
+        </div>
+      
+    <!-- 'div' below end of testParent -->
       </div>
-    </div>
   </body>
 </html>

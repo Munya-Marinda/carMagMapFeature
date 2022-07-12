@@ -12,29 +12,45 @@
   display: flex;
   align-items: center;
 }
- 
-#zoomOutButton {
+
+.mapButtonsContainer {
+  width: fit-content;
+  border-radius: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: white;
   animation-name: hoverEffect;
   animation-duration: 2s;
   animation-iteration-count: infinite;
   animation-direction: alternate;
-  width: fit-content;
-  padding: 10px;
-  border-radius: 7px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-weight: bolder;
+  display: none;
   position: absolute;
-  color:gray;
-  background:  white;
-  opacity: 1;
   z-index: 1;
 }
 
-#testParent{
+.mapButtons {
+  width: fit-content;
+  padding: 5px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: bolder;
+  color: gray;
+  background-color: white;
+  opacity: 1;
+  display: flex;
+  border-radius: 5px;
+}
+
+#mapButtonsContainer :hover{
+  background: rgb(66, 66, 66);
+}
+ 
+#testParent {
   width: 80vw;
   height: 500px;
   background: gainsboro;
-} 
+}
 
 @keyframes hoverEffect {
   0% {
@@ -43,7 +59,7 @@
   }
 
   100% {
-    box-shadow: 1px 1px 35px gray; 
-    opacity: 0.6;   
+    box-shadow: 1px 1px 35px gray;
+    opacity: 0.8;
   }
 }

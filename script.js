@@ -6,7 +6,7 @@ const RegionData = [
   {
     regionName: "Eastern Cape",
     regionLocation: { lat: -32.0869448, lng: 24.1658452 },
-    iconURL: "./assets/regionIcons/ec.png",
+    iconURL: "ec.png",
     dealerships: [
       {
         dealerName: "Auto Pedigree East London",
@@ -43,7 +43,7 @@ const RegionData = [
   {
     regionName: "Free State",
     regionLocation: { lat: -28.6743815, lng: 25.9448766 },
-    iconURL: "./assets/regionIcons/fc.png",
+    iconURL: "fc.png",
     dealerships: [
       {
         dealerName: "Auto Pedigree Bloemfontein Oliver Tambo",
@@ -68,7 +68,7 @@ const RegionData = [
   {
     regionName: "Gauteng",
     regionLocation: { lat: -26.0144053, lng: 27.5669771 },
-    iconURL: "./assets/regionIcons/gp.png",
+    iconURL: "gp.png",
     dealerships: [
       {
         dealerName: "Autocad Cars",
@@ -87,7 +87,7 @@ const RegionData = [
   {
     regionName: "KwaZulu-Natal",
     regionLocation: { lat: -28.9378436, lng: 29.7612388 },
-    iconURL: "./assets/regionIcons/kzn.png",
+    iconURL: "kzn.png",
     dealerships: [
       {
         dealerName: "Halfway Ford Waterfall",
@@ -100,7 +100,7 @@ const RegionData = [
   {
     regionName: "Limpopo",
     regionLocation: { lat: -23.7675464, lng: 28.0246553 },
-    iconURL: "./assets/regionIcons/lp.png",
+    iconURL: "lp.png",
     dealerships: [
       {
         dealerName: "Auto Pedigree Burgersfort",
@@ -125,7 +125,7 @@ const RegionData = [
   {
     regionName: "Mpumalanga",
     regionLocation: { lat: -25.7369283, lng: 29.0175029 },
-    iconURL: "./assets/regionIcons/mp.png",
+    iconURL: "mp.png",
     dealerships: [
       {
         dealerName: "Auto Italia",
@@ -144,7 +144,7 @@ const RegionData = [
   {
     regionName: "Northern Cape",
     regionLocation: { lat: -29.67818, lng: 21.265989 },
-    iconURL: "./assets/regionIcons/nc.png",
+    iconURL: "nc.png",
     dealerships: [
       {
         dealerName: "Auto Pedigree Kimberley",
@@ -157,7 +157,7 @@ const RegionData = [
   {
     regionName: "North West",
     regionLocation: { lat: -26.3681227, lng: 24.342673 },
-    iconURL: "./assets/regionIcons/nw.png",
+    iconURL: "nw.png",
     dealerships: [
       {
         dealerName: "Auto Pedigree Brits",
@@ -170,7 +170,7 @@ const RegionData = [
   {
     regionName: "Western Cape",
     regionLocation: { lat: -32.8847716, lng: 19.7016556 },
-    iconURL: "./assets/regionIcons/wc.png",
+    iconURL: "wc.png",
     dealerships: [
       {
         dealerName: "Alterior Auto",
@@ -203,7 +203,7 @@ const RegionData = [
 
 // Class to manage map functions
 class DealershipMap {
-  constructor( region_data) { 
+  constructor(region_data) {
     this.RegionData = region_data; // array of region data
     this.map = null; // Google map object
     this.RegionMarkers = []; // contains array of region markers
@@ -211,18 +211,23 @@ class DealershipMap {
     this.DealershipInfoWindow = []; // contains array of infoWindows
     // stores user activity on the map
     this.MapState = {
+      // user location
+      userLocation: null,
       // "region_view" or "dealership_view"
       state: "region_view",
       // clicks in each new state
       num_of_clicks: 0,
       // regions opened during session
-      num_of_regions_browsed: 0 ,
+      num_of_regions_browsed: 0,
     };
   } // constructor ends
 
   //
   // Set of functions executed when the document loads
   docReady() {
+    // ask user location
+    dealershipMap.userLocation("ask");
+
     // send props data to create new map
     var mapProp = {
       center: new google.maps.LatLng(-28.6743815, 25.9448766),
@@ -246,7 +251,6 @@ class DealershipMap {
   // opens map region
   openMapToRegion(region_Name) {
     this.MapState.num_of_regions_browsed++;
-        console.log("Regions browsed >>>"+this.MapState.num_of_regions_browsed);
     // array of marker locations - to reset the map window to plotted makers
     var arrMarkerLocations = [];
     // iterate through regions
@@ -319,7 +323,7 @@ class DealershipMap {
   getProvinceButtons() {
     var innerHTML = "";
 
-    // Iterate through list of provinces and create a button for each 
+    // Iterate through list of provinces and create a button for each
     this.RegionData.forEach((region) => {
       innerHTML +=
         ' <button style="padding: 7px; margin-left:10px; border: 0px; border-radius: 10px; color: white; background-color: gray" type="button" onclick="open' +
@@ -353,8 +357,8 @@ class DealershipMap {
     this.RegionData.forEach((region) => {
       // create icon object
       var regionIcon = {
-        url: region.iconURL.toString(), // url,
-        alt: "debug_westerncape",
+        url: "./assets/region_assets/" + region.iconURL.toString(), // url,
+        alt: "province: " + region.iconURL.toString(),
         scaledSize: new google.maps.Size(40, 50), // size
       };
       // create marker
@@ -371,7 +375,6 @@ class DealershipMap {
       // onclick event of marker to open region
       marker.addListener("click", (event) => {
         this.openMapToRegion(event.domEvent.target.parentNode.title);
-        
       });
     });
   } // populateRegionMapMarkers ends
@@ -407,26 +410,26 @@ class DealershipMap {
   //
   // slide "in" or "out" the zoom-out-to-region-button
   showRegionsAnimation(type, parentID) {
-    // set the parent and button
+    // set the parent and button container
     var parent = document.getElementById(parentID);
-    var button = document.getElementById("zoomOutButton");
     var buttonContainer = document.getElementById("zoomOutButton_container");
 
     // get parent's width and put child against right side
     const parentMiddleX = parent.clientWidth;
 
-    // get parent's height and calc where to place button
+    // get parent's height and calc where to place button container
     const parentMiddleY = parent.clientHeight;
 
     switch (type) {
       case "in":
-        // move button to parents middle
-        button.style.left = parentMiddleX - button.clientWidth + "px";
-        button.style.top = parentMiddleY / 0.9 + "px";
+        // move button container to parents middle
+        buttonContainer.style.left =
+          parentMiddleX - buttonContainer.clientWidth + "px";
+        buttonContainer.style.top = parentMiddleY / 0.9 + "px";
 
         // set opacity of button container (for fade in effect)
         buttonContainer.style.display = "block";
-        buttonContainer.style.opacity = 0;
+        buttonContainer.style.opacity = 1;
 
         // id of the animation
         var slideIn_id = null;
@@ -443,13 +446,13 @@ class DealershipMap {
         // actual animation
         function slideIn() {
           // when to stop animation
-          if (leftValue < parentMiddleX - button.clientWidth * 2) {
+          if (leftValue < parentMiddleX * 0.9 - buttonContainer.clientWidth) {
             // stop animation
             clearInterval(slideIn_id);
           } else {
             // move in effect
-            leftValue = parseInt(button.style.left) - 5;
-            button.style.left = leftValue + "px";
+            leftValue = parseInt(buttonContainer.style.left) - 5;
+            buttonContainer.style.left = leftValue + "px";
             buttonContainer.style.opacity =
               parseFloat(buttonContainer.style.opacity) + 0.04;
           }
@@ -481,13 +484,17 @@ class DealershipMap {
             clearInterval(slideOut_id);
           } else {
             // move in effect
-            leftValue = parseInt(button.style.left) + 5;
-            button.style.left = leftValue + "px";
+            leftValue = parseInt(buttonContainer.style.left) + 5;
+            buttonContainer.style.left = leftValue + "px";
             // fade in effect
             buttonContainer.style.opacity =
               parseFloat(buttonContainer.style.opacity) - 0.04;
           }
         }
+
+        // hide button
+        buttonContainer.style.display = "none";
+        buttonContainer.style.opacity = 0;
 
         // place region markers
         this.RegionMarkers.forEach((marker) => {
@@ -519,11 +526,14 @@ class DealershipMap {
       default:
         break;
     }
-  }
+  } // showRegionsAnimation
 
   //
   // reset/increment/decrement user click
   manageClicks(number) {
+    // elements
+    const regionViewButton = document.getElementById("zoomOutButton_container");
+
     // (number = 0) resets to 0
     if (number === 0) {
       this.MapState.num_of_clicks = number;
@@ -533,24 +543,111 @@ class DealershipMap {
     }
 
     // the state and number of clicks determine certain functions
-    const clicks = this.MapState.num_of_clicks
-    const state = this.MapState.state
-    const region = this.MapState.num_of_regions_browsed
+    const clicks = this.MapState.num_of_clicks;
+    const state = this.MapState.state;
+    const region = this.MapState.num_of_regions_browsed;
 
     // click and state
-    if (clicks === 4 && state === "dealership_view" && region === 1 ) {
+    if (clicks === 2 && state === "dealership_view") {
       // animates in the button
       dealershipMap.showRegionsAnimation("in", "googleMapContainer");
     }
 
-    if (region === 2 && state === "dealership_view" ) {
+    if (
+      region === 2 &&
+      state === "dealership_view" &&
+      regionViewButton.style.display !== "block"
+    ) {
       // animates in the button
       dealershipMap.showRegionsAnimation("in", "googleMapContainer");
     }
+  } // manageClicks ends
 
+  // userLocation
+  userLocation(action) {
+    switch (action) {
+      case "ask":
+        // info window to display errors
+        var infoWindow = new google.maps.InfoWindow();
 
-  }
-} // DealershipMap ends
+        // if location was provided
+        if (this.MapState.userLocation !== null) {
+          // recenter map
+          this.map.setCenter(this.MapState.userLocation);
+
+          // zoom-in map
+          this.map.setZoom(12);
+        } else {
+          // Ask user location, try HTML5 geolocation.
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+              // get user position
+              (position) => {
+                this.MapState.userLocation = {
+                  lat: position.coords.latitude,
+                  lng: position.coords.longitude,
+                };
+
+                // place info window
+                infoWindow.setPosition(this.MapState.userLocation);
+
+                // create icon object
+                var userLocationIcon = {
+                  url: "./assets/svg/userlocation3.svg", // url,
+                  alt: "user location icon",
+                  scaledSize: new google.maps.Size(40, 50), // size
+                };
+
+                // create user marker
+                const userMarker = new google.maps.Marker({
+                  position: this.MapState.userLocation,
+                  map: this.map,
+                  title: "ME",
+                  icon: userLocationIcon,
+                });
+
+                userMarker.addListener("click", () => {
+                  // recenter map
+                  this.map.setCenter(this.MapState.userLocation);
+
+                  // zoom-in map
+                  this.map.setZoom(12);
+                });
+
+                // recenter map
+                this.map.setCenter(this.MapState.userLocation);
+
+                // zoom-in map
+                this.map.setZoom(10);
+              },
+              () => {
+                // incase of an error
+                handleLocationError(true, infoWindow, this.map.getCenter());
+              }
+            );
+          } else {
+            // Browser doesn't support Geolocation
+            handleLocationError(false, infoWindow, this.map.getCenter());
+          }
+        }
+
+        function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+          infoWindow.setPosition(pos);
+          infoWindow.setContent(
+            browserHasGeolocation
+              ? "Error: The Geolocation service failed."
+              : "Error: Your browser doesn't support geolocation."
+          );
+          infoWindow.open(this.map);
+        }
+
+        break;
+
+      default:
+        break;
+    }
+  } // userLocation
+} // Class DealershipMap ends
 
 //
 // create new Class Object
@@ -606,6 +703,21 @@ function openWesternCape() {
   dealershipMap.openMapToRegion("Western Cape");
 }
 
+// Zoom out to region view
+function ShowRegionMarkers() {
+  dealershipMap.showRegionsAnimation("out", "googleMapContainer");
+}
+
+// User click count
+function MapContainer() {
+  dealershipMap.manageClicks(+1);
+}
+
+// User wants to give location permission
+function userWantsLocation() {
+  dealershipMap.userLocation("ask");
+}
+
 //
 //
 //
@@ -614,14 +726,5 @@ function openWesternCape() {
 //
 
 function test() {
-  dealershipMap.showRegionsAnimation("in", "googleMapContainer");
-}
-
-function ShowRegionMarkers() {
-  dealershipMap.showRegionsAnimation("out", "googleMapContainer");
-}
-
-function MapContainer() {
-  console.log("googleMapContainer clicked!");
-  dealershipMap.manageClicks(+1)
+  // dealershipMap.userLocation("ask");
 }

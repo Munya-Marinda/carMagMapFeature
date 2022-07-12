@@ -46,12 +46,55 @@
                />
          </div>
       </div>
-      <div id="googleMapContainer" onclick="MapContainer()" style="padding: 30px; border: black 1px solid; width: auto; height: fit-content;">
-         <div id="zoomOutButton_container" style="display: none;" onclick="ShowRegionMarkers()">
-            <div id="zoomOutButton">REGION VIEW</div> 
-        </div>
+      <div id="googleMapContainer" onclick="MapContainer()" style="padding: 30px; border: black 1px solid; width: auto; height: fit-content;">  
+
+         <div class="mapButtonsContainer" id="zoomOutButton_container">
+            <div
+              class="mapButtons"
+              id="zoomOutButton"
+              onclick="ShowRegionMarkers()"
+            >
+              <img
+                style="width: 15px; margin-right: 7px"
+                src="./assets/svg/regionsicon1.svg"
+                alt="regionsicon1.svg"
+                onclick="ShowRegionMarkers()"
+                />
+              REGION VIEW
+            </div>
+            <hr style="opacity: 50%" />
+            <div
+              class="mapButtons"
+              id="getUserLocationButton"
+              onclick="userWantsLocation()"
+            >
+              <img
+                style="width: 15px; margin-right: 7px"
+                src="./assets/svg/userlocation4.svg"
+                alt="userlocation3.svg"
+                onclick="userWantsLocation()"
+                />
+              NEAREST TO ME
+            </div>
+          </div>
+        
          <div id="googleMap" style="width: 100%; height: 500px"></div> 
        
+      </div>
+      <div
+        id="testButton"
+        style="
+          border-radius: 15px;
+          padding: 10px;
+          background: black;
+          color: white;
+          width: fit-content;
+          margin: 20px;
+          align-self: center;
+        "
+        onclick="test()"
+      >
+        TEST BUTTON 1
       </div>
       <div
          id="regionButtons"

@@ -1,0 +1,8 @@
+// Returns distances between the origin and a set of destinations
+https://developers.google.com/maps/documentation/distance-matrix/distance-matrix#maps_http_distancematrix_latlng-js
+
+// Fetches the distances between a set of locations
+https://developers.google.com/maps/documentation/javascript/examples/distance-matrix
+
+// Complex but works
+https://stackoverflow.com/questions/35629288/google-maps-api-find-nearest-locations
