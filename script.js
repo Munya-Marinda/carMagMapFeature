@@ -13,30 +13,35 @@ const RegionData = [
         location: { lat: -32.9588026, lng: 27.9326508 },
         totalCars: 14,
         logoURL: "./assets/dealership_assets/circle/auto_pedigree.png",
+        webURL: "https://www.carmag.co.za/car-dealerships/eastern-cape",
       },
       {
         dealerName: "Auto Pedigree Eastern Cape",
         location: { lat: -32.7656184, lng: 26.0495569 },
         totalCars: 164,
         logoURL: "./assets/dealership_assets/circle/auto_pedigree.png",
+        webURL: "https://www.carmag.co.za/car-dealerships/eastern-cape",
       },
       {
         dealerName: "Izuzu Meyers Motors King Williams Town",
         location: { lat: -32.9186817, lng: 27.5163521 },
         totalCars: 21,
         logoURL: "./assets/dealership_assets/circle/izuzu_meyers_car.png",
+        webURL: "https://www.carmag.co.za/car-dealerships/eastern-cape",
       },
       {
         dealerName: "Meyers Car Bazar",
         location: { lat: -33.0138502, lng: 27.9027218 },
         totalCars: 17,
         logoURL: "./assets/dealership_assets/circle/izuzu_meyers_car.png",
+        webURL: "https://www.carmag.co.za/car-dealerships/eastern-cape",
       },
       {
         dealerName: "Ronnies Motors",
         location: { lat: -33.0138305, lng: 27.8346931 },
         totalCars: 10,
         logoURL: "./assets/dealership_assets/circle/ronnies_motors.png",
+        webURL: "https://www.carmag.co.za/car-dealerships/eastern-cape",
       },
     ],
   },
@@ -50,18 +55,21 @@ const RegionData = [
         location: { lat: -29.1247446, lng: 26.2173738 },
         totalCars: 14,
         logoURL: "./assets/dealership_assets/circle/auto_pedigree.png",
+        webURL: "https://www.carmag.co.za/car-dealerships/free-state",
       },
       {
         dealerName: "Auto Pedigree Bloemfontein Zastro",
         location: { lat: -29.113348, lng: 26.2181539 },
         totalCars: 15,
         logoURL: "./assets/dealership_assets/circle/auto_pedigree.png",
+        webURL: "https://www.carmag.co.za/car-dealerships/free-state",
       },
       {
         dealerName: "Auto Pedigree Qwa-Qwa",
         location: { lat: -28.531306, lng: 28.829376 },
         totalCars: 12,
         logoURL: "./assets/dealership_assets/circle/auto_pedigree.png",
+        webURL: "https://www.carmag.co.za/car-dealerships/free-state",
       },
     ],
   },
@@ -75,12 +83,14 @@ const RegionData = [
         location: { lat: -26.0957812, lng: 28.0028578 },
         totalCars: 295,
         logoURL: "./assets/dealership_assets/circle/standard_car_icon.png",
+        webURL: "https://www.carmag.co.za/car-dealerships/gauteng",
       },
       {
         dealerName: "Auto Investments Centurion",
         location: { lat: -26.6793108, lng: 27.4983813 },
         totalCars: 157,
         logoURL: "./assets/dealership_assets/circle/standard_car_icon.png",
+        webURL: "https://www.carmag.co.za/car-dealerships/gauteng",
       },
     ],
   },
@@ -94,6 +104,7 @@ const RegionData = [
         location: { lat: -29.7509046, lng: 30.8116776 },
         totalCars: 23,
         logoURL: "./assets/dealership_assets/circle/standard_car_icon.png",
+        webURL: "https://www.carmag.co.za/car-dealerships/kwazulu-natal",
       },
     ],
   },
@@ -107,18 +118,21 @@ const RegionData = [
         location: { lat: -24.684232, lng: 30.334904 },
         totalCars: 10,
         logoURL: "./assets/dealership_assets/circle/standard_car_icon.png",
+        webURL: "https://www.carmag.co.za/car-dealerships/limpopo",
       },
       {
         dealerName: "Auto Pedigree Groblersdal",
         location: { lat: -25.171794350469916, lng: 29.391719878212463 },
         totalCars: 15,
         logoURL: "./assets/dealership_assets/circle/auto_pedigree.png",
+        webURL: "https://www.carmag.co.za/car-dealerships/limpopo",
       },
       {
         dealerName: "Auto Pedigree Polokwane South",
         location: { lat: -23.9157526, lng: 29.4423274 },
         totalCars: 15,
         logoURL: "./assets/dealership_assets/circle/auto_pedigree.png",
+        webURL: "https://www.carmag.co.za/car-dealerships/limpopo",
       },
     ],
   },
@@ -132,12 +146,14 @@ const RegionData = [
         location: { lat: -25.7720133, lng: 29.4715153 },
         totalCars: 18,
         logoURL: "./assets/dealership_assets/circle/standard_car_icon.png",
+        webURL: "https://www.carmag.co.za/car-dealerships/mpumalanga",
       },
       {
         dealerName: "Auto Pedigree Ermelo",
         location: { lat: -26.5373093, lng: 29.9875623 },
         totalCars: 11,
         logoURL: "./assets/dealership_assets/circle/auto_pedigree.png",
+        webURL: "https://www.carmag.co.za/car-dealerships/mpumalanga",
       },
     ],
   },
@@ -151,6 +167,7 @@ const RegionData = [
         location: { lat: -26.5373093, lng: 29.9875623 },
         totalCars: 12,
         logoURL: "./assets/dealership_assets/circle/auto_pedigree.png",
+        webURL: "https://www.carmag.co.za/car-dealerships/northern-cape",
       },
     ],
   },
@@ -164,6 +181,7 @@ const RegionData = [
         location: { lat: -25.6300674, lng: 27.7787409 },
         totalCars: 19,
         logoURL: "./assets/dealership_assets/circle/auto_pedigree.png",
+        webURL: "https://www.carmag.co.za/car-dealerships/northern-cape",
       },
     ],
   },
@@ -177,12 +195,14 @@ const RegionData = [
         location: { lat: -33.9067444, lng: 18.580001 },
         totalCars: 11,
         logoURL: "./assets/dealership_assets/circle/standard_car_icon.png",
+        webURL: "https://www.carmag.co.za/car-dealerships/western-cape",
       },
       {
         dealerName: "Auto Pedigree Bellville",
         location: { lat: -33.9023769, lng: 18.6072502 },
         totalCars: 10,
         logoURL: "./assets/dealership_assets/circle/auto_pedigree.png",
+        webURL: "https://www.carmag.co.za/car-dealerships/western-cape",
       },
     ],
   },
@@ -292,7 +312,9 @@ class DealershipMap {
             dealership.dealerName +
             '</span> </div> <div style=" display: flex; justify-content: space-between; padding-bottom: 5px; padding-left: 5px;padding-right: 5px;" > <span style="font-size: 10px; padding: 5px; border-radius: 5px; background-color: lightgray">TOTAL CARS: ' +
             dealership.totalCars.toString() +
-            '</span> <span> <a href="https://www.google.com" style="" >website</a > </span> </div> </div> </div>';
+            "</span> <span> <a href=" +
+            dealership.webURL +
+            ' style="" >website</a > </span> </div> </div> </div>';
 
           // add to array of infoWindows
           this.DealershipInfoWindow.push(infoWindow);
@@ -590,7 +612,7 @@ class DealershipMap {
 
                 // place info window
                 infoWindow.setPosition(this.MapState.userLocation);
-
+ 
                 // create icon object
                 var userLocationIcon = {
                   url: "./assets/svg/userlocation3.svg", // url,
@@ -638,6 +660,7 @@ class DealershipMap {
               ? "Error: The Geolocation service failed."
               : "Error: Your browser doesn't support geolocation."
           );
+          console.log(this.map === null);
           infoWindow.open(this.map);
         }
 
@@ -721,4 +744,4 @@ function userWantsLocation() {
 //
 //
 //
-// 
+//
