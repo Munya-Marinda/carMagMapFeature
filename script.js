@@ -586,90 +586,123 @@ class DealershipMap {
   } // manageClicks ends
 
   // userLocation
-  userLocation(action) {
-    switch (action) {
-      case "ask":
-        // info window to display errors
-        var infoWindow = new google.maps.InfoWindow();
+  userLocation() {
+    // info window to display errors
+    var infoWindow = new google.maps.InfoWindow();
 
-        // if location was provided
-        if (this.MapState.userLocation !== null) {
-          // recenter map
-          this.map.setCenter(this.MapState.userLocation);
+    // if location was provided
+    if (this.MapState.userLocation !== null) {
+      // recenter map
+      this.map.setCenter(this.MapState.userLocation);
 
-          // zoom-in map
-          this.map.setZoom(12);
-        } else {
-          // Ask user location, try HTML5 geolocation.
-          if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-              // get user position
-              (position) => {
-                this.MapState.userLocation = {
-                  lat: position.coords.latitude,
-                  lng: position.coords.longitude,
-                };
+      // zoom-in map
+      this.map.setZoom(12);
+    } else {
+      // Ask user location, try HTML5 geolocation.
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          // get user position
+          (position) => {
+            this.MapState.userLocation = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+            };
 
-                // place info window
-                infoWindow.setPosition(this.MapState.userLocation);
- 
-                // create icon object
-                var userLocationIcon = {
-                  url: "./assets/svg/userlocation3.svg", // url,
-                  alt: "user location icon",
-                  scaledSize: new google.maps.Size(40, 50), // size
-                };
+            // place info window
+            infoWindow.setPosition(this.MapState.userLocation);
 
-                // create user marker
-                const userMarker = new google.maps.Marker({
-                  position: this.MapState.userLocation,
-                  map: this.map,
-                  title: "ME",
-                  icon: userLocationIcon,
-                });
+            // create icon object
+            var userLocationIcon = {
+              url: "./assets/svg/userlocation3.svg", // url,
+              alt: "user location icon",
+              scaledSize: new google.maps.Size(40, 50), // size
+            };
 
-                userMarker.addListener("click", () => {
-                  // recenter map
-                  this.map.setCenter(this.MapState.userLocation);
+            // create user marker
+            const userMarker = new google.maps.Marker({
+              position: this.MapState.userLocation,
+              map: this.map,
+              title: "ME",
+              icon: userLocationIcon,
+            });
 
-                  // zoom-in map
-                  this.map.setZoom(12);
-                });
+            userMarker.addListener("click", () => {
+              // recenter map
+              this.map.setCenter(this.MapState.userLocation);
 
-                // recenter map
-                this.map.setCenter(this.MapState.userLocation);
+              // zoom-in map
+              this.map.setZoom(12);
+            });
 
-                // zoom-in map
-                this.map.setZoom(10);
-              },
-              () => {
-                // incase of an error
-                handleLocationError(true, infoWindow, this.map.getCenter());
-              }
-            );
-          } else {
-            // Browser doesn't support Geolocation
-            handleLocationError(false, infoWindow, this.map.getCenter());
+            // closest dealer to user
+            this.nearestToUser();
+
+            // recenter map
+            this.map.setCenter(this.MapState.userLocation);
+
+            // zoom-in map
+            this.map.setZoom(10);
+          },
+          () => {
+            // incase of an error
+            handleLocationError(true, infoWindow, this.map.getCenter());
           }
-        }
+        );
+      } else {
+        // Browser doesn't support Geolocation
+        handleLocationError(false, infoWindow, this.map.getCenter(), this.map);
+      }
+    }
 
-        function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-          infoWindow.setPosition(pos);
-          infoWindow.setContent(
-            browserHasGeolocation
-              ? "Error: The Geolocation service failed."
-              : "Error: Your browser doesn't support geolocation."
-          );
-          console.log(this.map === null);
-          infoWindow.open(this.map);
-        }
-
-        break;
-
-      default:
-        break;
+    function handleLocationError(browserHasGeolocation, infoWindow, pos, map) {
+      infoWindow.setPosition(pos);
+      infoWindow.setContent(
+        browserHasGeolocation
+          ? "Error: The Geolocation service failed."
+          : "Error: Your browser doesn't support geolocation."
+      );
+      infoWindow.open(map);
     }
   } // userLocation
+
+  // nearestToUser
+  nearestToUser() {
+    // if the user location exist
+    if (this.MapState.userLocation !== null) {
+      // initialize services
+      const geocoder = new google.maps.Geocoder();
+      const distService = new google.maps.DistanceMatrixService();
+
+      // build request
+      const origin1 = { lat: 55.93, lng: -3.118 };
+      const origin2 = "Greenwich, England";
+      const destinationA = "Stockholm, Sweden";
+      const destinationB = { lat: 50.087, lng: 14.421 };
+
+      // set origins and destinations
+      const request = {
+        origins: [origin1, origin2],
+        destinations: [destinationA, destinationB],
+        travelMode: google.maps.TravelMode.DRIVING,
+        unitSystem: google.maps.UnitSystem.METRIC,
+        avoidHighways: false,
+        avoidTolls: false,
+      };
+
+      // display request
+      // console.log(JSON.stringify(request, null, 2));
+
+      // get distance service response
+      distService.getDistanceMatrix(request).then((response) => {
+        // display response
+        console.log(JSON.stringify(response, null, 2));
+
+      })
+
+    } else {
+      console.log("User location not found.");
+    }
+  } // nearestToUser
 } // Class DealershipMap ends
 
 //
@@ -738,7 +771,7 @@ function MapContainer() {
 
 // User wants to give location permission
 function userWantsLocation() {
-  dealershipMap.userLocation("ask");
+  dealershipMap.userLocation();
 }
 
 //
