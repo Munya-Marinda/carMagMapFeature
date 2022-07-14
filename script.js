@@ -164,7 +164,7 @@ const RegionData = [
     dealerships: [
       {
         dealerName: "Auto Pedigree Kimberley",
-        location: { lat: -26.5373093, lng: 29.9875623 },
+        location: { lat: -26.7151309, lng: 30.0827767 },
         totalCars: 12,
         logoURL: "./assets/dealership_assets/circle/auto_pedigree.png",
         webURL: "https://www.carmag.co.za/car-dealerships/northern-cape",
@@ -673,32 +673,91 @@ class DealershipMap {
       const geocoder = new google.maps.Geocoder();
       const distService = new google.maps.DistanceMatrixService();
 
-      // build request
-      const origin1 = { lat: 55.93, lng: -3.118 };
-      const origin2 = "Greenwich, England";
-      const destinationA = "Stockholm, Sweden";
-      const destinationB = { lat: 50.087, lng: 14.421 };
+      // generate array of locations and empty distances to user
+      // [[Object, Number],...,[Object, Number]] = [[Location, Distance in km]...[,]]
+      const arrDestinationData = [
+        [{ lat: -29.7509046, lng: 30.8116776 }, 0], // Halfway Ford Waterfall
+        [{ lat: -33.9067444, lng: 18.580001 }, 0], // Alterior Auto
+        [{ lat: -24.684232, lng: 30.334904 }, 0], // Auto Pedigree Burgersfort
+        [{ lat: -26.5373093, lng: 29.9875623 }, 0], // Auto Pedigree Kimberley
+        [{ lat: -32.9588026, lng: 27.9326508 }, 0], // Auto Pedigree East London
+        [{ lat: -33.0138305, lng: 27.8346931 }, 0], // "Ronnies Motors"
+      ];
+
+      // !!! TURNED OFF FOR TESTING
+      // iterate through regions
+      // this.RegionData.forEach((region) => {
+      //   // iterate through dealerships
+      //   region.dealerships.forEach((dealership) => {
+      //     // add location to list
+      //     arrDestinationData.push([dealership.location, 0]);
+      //   });
+      // });
+
+      // create an array of destination locations to feed the request
+      var toDestinations = [];
+      arrDestinationData.forEach((dealership) => {
+        toDestinations.push(dealership[0]); // get location Object
+      });
 
       // set origins and destinations
       const request = {
-        origins: [origin1, origin2],
-        destinations: [destinationA, destinationB],
+        origins: [this.MapState.userLocation],
+        destinations: toDestinations,
         travelMode: google.maps.TravelMode.DRIVING,
         unitSystem: google.maps.UnitSystem.METRIC,
         avoidHighways: false,
         avoidTolls: false,
       };
 
-      // display request
-      // console.log(JSON.stringify(request, null, 2));
+      // clear console
+      console.clear();
 
       // get distance service response
       distService.getDistanceMatrix(request).then((response) => {
-        // display response
-        console.log(JSON.stringify(response, null, 2));
+        // extract elements
+        const destinations = response.rows[0].elements;
 
-      })
+        // safety: make sure request and response data count matches
+        if (destinations.length === arrDestinationData.length) {
+          // add distance to corresponding location
+          destinations.forEach((destination, index) => {
+            arrDestinationData[index][1] = parseInt(destination.distance.value);
+          });
 
+          // sort dealerships from closest to furthest
+          arrDestinationData.sort(function (a, b) {
+            return a[1] - b[1];
+          });
+
+          // take only the nearest/first five
+          if (arrDestinationData.length > 5) {
+            while (arrDestinationData.length !== 5) {
+              arrDestinationData.pop();
+            }
+          } 
+          // show the closest dealerships
+          // iterate nearest dealerships
+          for (var i = 0; i < arrDestinationData.length; i++) {
+            // iterate through regions
+            this.RegionData.forEach((region) => {
+              // iterate through dealerships
+              region.dealerships.forEach((dealership) => {
+                // find matching location : iterate through nearest from distance calculations dealerships
+
+                // check with which dealership it corresponds to
+                var bool =
+                  arrDestinationData[i][0].lng === dealership.location.lng &&
+                  arrDestinationData[i][0].lat === dealership.location.lat;
+
+                if (bool) {
+                  console.log(">> " + dealership.dealerName);
+                }
+              });
+            });
+          }
+        }
+      });
     } else {
       console.log("User location not found.");
     }
