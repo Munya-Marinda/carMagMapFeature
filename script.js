@@ -721,10 +721,4 @@ function userWantsLocation() {
 //
 //
 //
-//
-// Debug!
-//
-
-function test() {
-  // dealershipMap.userLocation("ask");
-}
+// 
