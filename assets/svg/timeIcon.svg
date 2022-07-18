@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="43.116001mm"
+   height="43.116001mm"
+   viewBox="0 0 43.116001 43.116002"
+   version="1.1"
+   id="svg923"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
+   sodipodi:docname="timeIcon.svg">
+  <defs
+     id="defs917">
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker1174"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="DotS">
+      <path
+         transform="scale(0.2) translate(7.4, 1)"
+         style="fill-rule:evenodd;stroke:#d8d8d8;stroke-width:1pt;stroke-opacity:1;fill:#d8d8d8;fill-opacity:1"
+         d="M -2.5,-1.0 C -2.5,1.7600000 -4.7400000,4.0 -7.5,4.0 C -10.260000,4.0 -12.5,1.7600000 -12.5,-1.0 C -12.5,-3.7600000 -10.260000,-6.0 -7.5,-6.0 C -4.7400000,-6.0 -2.5,-3.7600000 -2.5,-1.0 z "
+         id="path1172" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="DotS"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="DotS">
+      <path
+         transform="scale(0.2) translate(7.4, 1)"
+         style="fill-rule:evenodd;stroke:#d8d8d8;stroke-width:1pt;stroke-opacity:1;fill:#d8d8d8;fill-opacity:1"
+         d="M -2.5,-1.0 C -2.5,1.7600000 -4.7400000,4.0 -7.5,4.0 C -10.260000,4.0 -12.5,1.7600000 -12.5,-1.0 C -12.5,-3.7600000 -10.260000,-6.0 -7.5,-6.0 C -4.7400000,-6.0 -2.5,-3.7600000 -2.5,-1.0 z "
+         id="path963" />
+    </marker>
+    <rect
+       x="447.63577"
+       y="4670.8965"
+       width="31.428505"
+       height="36.358467"
+       id="rect1496" />
+    <rect
+       id="rect1523"
+       height="36.358467"
+       width="31.428505"
+       y="4670.8965"
+       x="447.63577" />
+    <rect
+       x="447.63577"
+       y="4670.8965"
+       width="31.428505"
+       height="36.358467"
+       id="rect1535" />
+    <rect
+       id="rect1537"
+       height="36.358467"
+       width="31.428505"
+       y="4670.8965"
+       x="447.63577" />
+  </defs>
+  <sodipodi:namedview
+     inkscape:snap-global="false"
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.979899"
+     inkscape:cx="106.26286"
+     inkscape:cy="31.748128"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     inkscape:document-rotation="0"
+     showgrid="false"
+     inkscape:window-width="1366"
+     inkscape:window-height="768"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata920">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-364.75571,-147.70377)">
+    <circle
+       style="fill:#525252;fill-opacity:1;stroke:none;stroke-width:0.665784;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+       id="path1241"
+       cx="386.31372"
+       cy="169.26176"
+       r="21.558001" />
+    <rect
+       ry="1.895511"
+       y="152.42848"
+       x="382.85651"
+       height="29.074137"
+       width="3.7910516"
+       id="rect1444"
+       style="fill:#f8f8f8;fill-opacity:1;stroke:none;stroke-width:1.60236;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill" />
+    <rect
+       transform="rotate(58.11168)"
+       style="fill:#f8f8f8;fill-opacity:1;stroke:none;stroke-width:1.60236;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+       id="rect1448"
+       width="3.7910271"
+       height="18.877228"
+       x="353.91357"
+       y="-248.849"
+       ry="1.895511" />
+  </g>
+</svg>
