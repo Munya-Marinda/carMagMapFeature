@@ -3,12 +3,10 @@
 }
 
 #dealershipPopup {
-  overflow: hidden !important;
-  white-space: nowrap;
+  overflow: hidden !important; 
   margin: auto;
   background: white;
-  width: 250px;
-  /* height: 65px; */
+  width: 250px; 
   display: flex;
   align-items: center;
 }
@@ -29,10 +27,14 @@
   position: absolute;
   z-index: 1;
 }
- 
-.visitDealerSite :visited{
+
+.visitDealerSite { 
   color: black;
+  /* text-decoration: none; */
+  font-weight: bold;
+  font-size: 15px;
 }
+ 
 
 .mapButtons {
   width: fit-content;
@@ -46,10 +48,17 @@
   border-radius: 5px;
 }
 
-#mapButtonsContainer :hover{
-  background: rgb(66, 66, 66);
+.mapButtonText :hover {
+  cursor: pointer;
 }
- 
+
+#mapButtonsContainer :hover {
+  background: rgb(66, 66, 66);
+  background: rgb(231, 231, 231);
+  cursor: pointer;
+  transition: 3s;
+}
+
 #testParent {
   width: 80vw;
   height: 500px;

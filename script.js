@@ -7,6 +7,7 @@ class DealershipMap {
     this.RegionMarkers = []; // contains array of region markers
     this.DealershipMarkers = []; // contains array of dealership markers
     this.DealershipInfoWindow = []; // contains array of infoWindows
+    //
     // stores user activity on the map
     this.MapState = {
       // user location
@@ -24,7 +25,7 @@ class DealershipMap {
   // Set of functions executed when the document loads
   docReady() {
     // ask user location
-    dealershipMap.userLocation("ask");
+    dealershipMap.userLocation();
 
     // send props data to create new map
     var mapProp = {
@@ -84,15 +85,15 @@ class DealershipMap {
 
           // content for the info window
           var infoWindowContent =
-            ' <div id="dealershipPopup"> <img src="' +
-            dealership.logoURL +
-            '" alt="dealershipImage" style="width: 40px; height: 40px"  /> <div style="margin-left: 5px; width: 195px;"> <div style="padding: 5px;" > <span style="font-weight: bold; font-size: 15px">' +
-            dealership.dealerName +
-            '</span> </div> <div style=" display: flex; justify-content: space-between; padding-bottom: 5px; padding-left: 5px;padding-right: 5px;" > <span style="font-size: 10px; padding: 5px; border-radius: 5px; background-color: lightgray">TOTAL CARS: ' +
+          '<div id="dealershipPopup"> <img src="' +
+          dealership.logoURL +
+          '" alt="Dealership logo" style="width: 40px; height: 40px" /> <div style="margin-left: 10px; width: 200px;"> <div style="padding-bottom: 10px; padding-top: 5px; word-wrap: break-word;"> <a href="' +
+          dealership.webURL +
+          '" class="visitDealerSite"> ' +
+          dealership.dealerName +
+          '</a> </div> <div style=" display: flex; justify-content: space-between; padding-bottom: 5px;padding-right: 5px;"> <span style="font-size: 10px; padding: 5px; border-radius: 5px; background-color: rgb(231, 231, 231)">TOTAL CARS: ' +
             dealership.totalCars.toString() +
-            "</span> <span> <a href=" +
-            dealership.webURL +
-            ' style="" >website</a > </span> </div> </div> </div>';
+            '</span> </div> </div> </div>';
 
           // add to array of infoWindows
           this.DealershipInfoWindow.push(infoWindow);
@@ -107,7 +108,6 @@ class DealershipMap {
             // show clicked marker's infoWindow
             infoWindow.setContent(infoWindowContent);
             infoWindow.open(this.map, marker);
-            infoWindow.focus();
           });
         });
       }
@@ -126,10 +126,10 @@ class DealershipMap {
     // Iterate through list of provinces and create a button for each
     this.RegionData.forEach((region) => {
       innerHTML +=
-        ' <button style="padding: 7px; margin-left:10px; border: 0px; border-radius: 10px; color: white; background-color: gray" type="button" onclick="open' +
-        region.regionName.replace(/\s/g, "").replace("-", "") +
-        '()">' +
+        '<button style="padding: 7px; margin-left:10px; border: 0px; border-radius: 10px; color: white; background-color: gray" type="button" onclick="openRegion(\'' +
         region.regionName +
+        "')\">" +
+        region.regionName.trim() +
         "</button>";
     });
 
@@ -296,15 +296,18 @@ class DealershipMap {
         buttonContainer.style.display = "none";
         buttonContainer.style.opacity = 0;
 
-        // place region markers
-        this.RegionMarkers.forEach((marker) => {
-          marker.setMap(this.map);
-        });
-
         // remove dealership-region markers
         this.DealershipMarkers.forEach((marker) => {
           marker.setMap(null);
         });
+
+        // // place region markers
+        // this.RegionMarkers.forEach((marker) => {
+        //   marker.setMap(this.map);
+        // });
+
+        // populate Region Map Markers
+        this.populateRegionMapMarkers();
 
         // get lat and lng
         var locations = []; // array of locations to set the map view
@@ -348,19 +351,22 @@ class DealershipMap {
     const region = this.MapState.num_of_regions_browsed;
 
     // click and state
-    if (clicks === 2 && state === "dealership_view") {
-      // animates in the button
-      dealershipMap.showRegionsAnimation("in", "googleMapContainer");
-    }
-
     if (
-      region === 2 &&
       state === "dealership_view" &&
       regionViewButton.style.display !== "block"
     ) {
       // animates in the button
       dealershipMap.showRegionsAnimation("in", "googleMapContainer");
     }
+
+    // if (
+    //   region === 2 &&
+    //   state === "dealership_view" &&
+    //   regionViewButton.style.display !== "block"
+    // ) {
+    //   // animates in the button
+    //   dealershipMap.showRegionsAnimation("in", "googleMapContainer");
+    // }
   } // manageClicks ends
 
   // userLocation
@@ -372,9 +378,12 @@ class DealershipMap {
     if (this.MapState.userLocation !== null) {
       // recenter map
       this.map.setCenter(this.MapState.userLocation);
- 
+
+      // closest dealer to user
+      this.nearestToUser();
+
+      // else not, ask user location, try HTML5 geolocation.
     } else {
-      // Ask user location, try HTML5 geolocation.
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           // get user position
@@ -391,7 +400,7 @@ class DealershipMap {
             var userLocationIcon = {
               url: "./assets/svg/userlocation3.svg", // url,
               alt: "user location icon",
-              scaledSize: new google.maps.Size(40, 50), // size
+              scaledSize: new google.maps.Size(30, 30), // size
             };
 
             // create user marker
@@ -405,15 +414,10 @@ class DealershipMap {
             userMarker.addListener("click", () => {
               // recenter map
               this.map.setCenter(this.MapState.userLocation);
- 
             });
 
             // closest dealer to user
             this.nearestToUser();
-
-            // recenter map
-            this.map.setCenter(this.MapState.userLocation);
- 
           },
           () => {
             // incase of an error
@@ -437,17 +441,17 @@ class DealershipMap {
     }
   } // userLocation
 
-  // nearestToUser
+  // nearest dealer to the user
   nearestToUser() {
     // if the user location exist
     if (this.MapState.userLocation !== null) {
-      // initialize services 
+      // initialize services
       const distService = new google.maps.DistanceMatrixService();
 
       // generate array of locations and empty distances to user
       // [[Object, Number, Object],...,[Object, Number, Object]]
       // = [[Location, Distance in km, {distance text, time text}]...[,,]]
-    
+
       const arrDestinationData = [];
 
       // iterate through regions
@@ -455,12 +459,13 @@ class DealershipMap {
         // iterate through dealerships
         region.dealerships.forEach((dealership) => {
           // add location to list
-          arrDestinationData.push([dealership.location,
-            0, 
+          arrDestinationData.push([
+            dealership.location,
+            0,
             {
               distance_text: "zero",
-              time_text: "zero"
-            }
+              time_text: "zero",
+            },
           ]);
         });
       });
@@ -490,13 +495,14 @@ class DealershipMap {
         if (destinations.length === arrDestinationData.length) {
           // copy information
           destinations.forEach((destination, index) => {
-          // copy distance value
+            // copy distance value
             arrDestinationData[index][1] = parseInt(destination.distance.value);
-          // copy distance text
-          arrDestinationData[index][2].distance_text = destination.distance.text;
-          // copy time text
-          arrDestinationData[index][2].time_text = destination.duration.text;
-        });
+            // copy distance text
+            arrDestinationData[index][2].distance_text =
+              destination.distance.text;
+            // copy time text
+            arrDestinationData[index][2].time_text = destination.duration.text;
+          });
 
           // sort dealerships from closest to furthest
           arrDestinationData.sort(function (a, b) {
@@ -512,16 +518,20 @@ class DealershipMap {
           //
           // show the closest dealerships
 
-          // remove dealership & region markers
+          // remove dealership markers
           this.DealershipMarkers.forEach((marker) => {
             marker.setMap(null);
           });
+          this.DealershipMarkers = [];
+
+          // remove region markers
           this.RegionMarkers.forEach((marker) => {
             marker.setMap(null);
           });
+          this.RegionMarkers = [];
 
           // locations of the closest dealerships (to reset bounds)
-          var arrMarkerLocations = []; 
+          var arrMarkerLocations = [];
 
           // iterate nearest dealerships
           for (var i = 0; i < arrDestinationData.length; i++) {
@@ -537,17 +547,6 @@ class DealershipMap {
                   arrDestinationData[i][0].lat === dealership.location.lat;
 
                 if (bool) {
-                  console.log(">> " + dealership.dealerName);
-                  //
-                  //
-                  //
-                  //
-                  //
-                  //
-                  //
-                  //
-                  //
-
                   // add to array of maker locations
                   arrMarkerLocations.push(dealership.location);
 
@@ -567,19 +566,19 @@ class DealershipMap {
 
                   // content for the info window
                   var infoWindowContent =
-                    ' <div id="dealershipPopup"> <img src="' +
+                    '<div id="dealershipPopup"> <img src="' +
                     dealership.logoURL +
-                    '" alt="dealershipImage" style="width: 40px; height: 40px"  /> <div style="margin-left: 5px; width: 195px;"> <div style="padding: 5px;" > <span style="font-weight: bold; font-size: 15px">' +
-                    dealership.dealerName +
-                    '</span> </div> <div style=" display: flex; justify-content: space-between; padding-bottom: 5px; padding-left: 5px;padding-right: 5px;" > <span style="font-size: 10px; padding: 5px; border-radius: 5px; background-color: lightgray">TOTAL CARS: ' +
-                    dealership.totalCars.toString() +
-                    "</span> <span> <a class='visitDealerSite' href=" +
+                    '" alt="Dealership logo" style="width: 40px; height: 40px" /> <div style="margin-left: 10px; width: 200px;"> <div style="padding-bottom: 10px; padding-top: 5px; word-wrap: break-word;"> <a href="' +
                     dealership.webURL +
-                    ' >website</a > </span> </div>'+
-                    '<div style="font-weight: bold; display: flex; justify-content: end; margin-top: 3px; padding-top: 5px;  padding-left: 5px;padding-right: 5px; border-top: 1px solid gray"> <span style="margin-right:10px" > <img src="./assets/svg/distanceIcon.svg" style="width:15px"/> '+
+                    '" class="visitDealerSite"> ' +
+                    dealership.dealerName +
+                    '</a> </div> <div style=" display: flex; justify-content: space-between; padding-bottom: 5px; padding-right: 5px;"> <span style="font-size: 10px; padding: 5px; border-radius: 5px; background-color: rgb(231, 231, 231)">TOTAL CARS: ' +
+                    dealership.totalCars.toString() +
+                    '</span> </div> <div style="font-weight: bold; display: flex; justify-content: end; margin-top: 3px; padding-top: 7px;  padding-left: 5px;padding-right: 5px; border-top: 1px solid gray"> <span style="margin-right:10px"> <img src="./assets/svg/distanceIcon.svg" style="width:15px; margin-right: 3px" />' +
                     arrDestinationData[i][2].distance_text +
-                    '</span> <span> <img src="./assets/svg/timeIcon.svg" style="width:10px"/> '+
-                    arrDestinationData[i][2].time_text +'</span> </div> </div></div>';
+                    ' </span> <span> <img src="./assets/svg/timeIcon.svg" style="width:10px; margin-right: 3px" />' +
+                    arrDestinationData[i][2].time_text +
+                    "</span> </div> </div> </div>";
 
                   // add to array of infoWindows
                   this.DealershipInfoWindow.push(infoWindow);
@@ -594,27 +593,20 @@ class DealershipMap {
                     // show clicked marker's infoWindow
                     infoWindow.setContent(infoWindowContent);
                     infoWindow.open(this.map, marker);
-                    infoWindow.focus();
                   });
-                  // reset view to markers if markers > 0
-                  if (arrMarkerLocations.length > 0) {
-                    this.resetBounds(arrMarkerLocations, 13, 0);
-                  }
-
-                  //
-                  //
-                  //
-                  //
-                  //
-                  //
-                  //
-                  //
-                  //
-                  //
                 }
               });
             });
           }
+          // reset view to markers if markers > 0
+          if (arrMarkerLocations.length > 0) {
+            this.resetBounds(arrMarkerLocations, 13, 0);
+          }
+
+          // change map state
+          this.MapState.state = "dealership_view";
+          this.MapState.num_of_clicks = 0;
+          this.MapState.num_of_regions_browsed = 0;
         }
       });
     } else {
@@ -624,11 +616,12 @@ class DealershipMap {
 } // Class DealershipMap ends
 
 //
+//
+//
+//
 // create new Class Object - populated after data is fetched
 let dealershipMap = null;
 
-//
-//
 //
 //
 // function on window.load
@@ -639,7 +632,7 @@ window.onload = () => {
     type: "GET",
     async: true,
     dataType: "json",
-    url: "http://localhost:8000/regiondata.json",
+    url: "https://dealer.carmag.co.za/dealerapi.php",
 
     // upon call success
     success: function (response) {
@@ -663,55 +656,27 @@ window.onload = () => {
 
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 // on-region-click() events
+function openRegion(region) {
+  dealershipMap.openMapToRegion(region);
+}
+
 //
-
-function openEasternCape() {
-  dealershipMap.openMapToRegion("Eastern Cape");
-}
-function openFreeState() {
-  dealershipMap.openMapToRegion("Free State");
-}
-function openGauteng() {
-  dealershipMap.openMapToRegion("Gauteng");
-}
-function openKwaZuluNatal() {
-  dealershipMap.openMapToRegion("KwaZulu-Natal");
-}
-function openLimpopo() {
-  dealershipMap.openMapToRegion("Limpopo");
-}
-function openMpumalanga() {
-  dealershipMap.openMapToRegion("Mpumalanga");
-}
-function openNorthernCape() {
-  dealershipMap.openMapToRegion("Northern Cape");
-}
-function openNorthWest() {
-  dealershipMap.openMapToRegion("North West");
-}
-function openWesternCape() {
-  dealershipMap.openMapToRegion("Western Cape");
-}
-
+//
 // Zoom out to region view
 function ShowRegionMarkers() {
   dealershipMap.showRegionsAnimation("out", "googleMapContainer");
 }
 
+//
+//
 // User click count
 function MapContainer() {
   dealershipMap.manageClicks(+1);
 }
 
+//
+//
 // User wants to give location permission
 function userWantsLocation() {
   dealershipMap.userLocation();

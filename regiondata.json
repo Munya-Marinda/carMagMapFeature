@@ -286,6 +286,16 @@
                 "totalCars": 10,
                 "logoURL": "./assets/dealership_assets/circle/auto_pedigree.png",
                 "webURL": "https://www.carmag.co.za/car-dealerships/western-cape"
+            },
+			{
+                "dealerName": "Autospot",
+                "location": {
+                    "lat": -33.904712,
+                    "lng": 18.650958
+                },
+                "totalCars": 10,
+                "logoURL": "./assets/dealership_assets/circle/auto_pedigree.png",
+                "webURL": "https://www.carmag.co.za/car-dealerships/western-cape"
             }
         ]
     }

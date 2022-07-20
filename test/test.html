@@ -46,27 +46,55 @@
     </div>
 
     <div id="testParent">
-      
-      
-      <div id="dealershipPopup"> <img src="../assets/dealership_assets/circle/standard_car_icon.png" alt="dealershipImage" style="width: 40px; height: 40px"  /> 
-        <div style="margin-left: 5px; width: 195px;">
-          <div style="padding: 5px;" >
-            <span style="font-weight: bold; font-size: 15px">Auto Pedigree</span>
+     
+
+
+
+
+      '<div id="dealershipPopup">'+
+        '<img src="' +
+        dealership.logoURL +
+        '" alt="dealership logo" style="width: 40px; height: 40px" />'+
+        '<div style="margin-left: 5px; width: 200px;">'+
+
+        '<div style="padding: 5px; word-wrap: break-word;" >'+
+        '<a href="' +
+        dealership.webURL +
+        '" class="visitDealerSite">'+
+        '<div style="width: inherit;">' +
+        dealership.dealerName +
+        'Make It Extra Extra Extra Long</p></a> </div> <div style=" display: flex; justify-content: space-between; padding-bottom: 5px; padding-left: 5px;padding-right: 5px;"> <span style="font-size: 10px; padding: 5px; border-radius: 5px; background-color: lightgray">TOTAL CARS: ' +
+        dealership.totalCars.toString() +
+        '</span> </span> </div>' +
+        '<div style="font-weight: bold; display: flex; justify-content: end; margin-top: 3px; padding-top: 5px;  padding-left: 5px;padding-right: 5px; border-top: 1px solid gray"> <span style="margin-right:10px" > <img src="./assets/svg/distanceIcon.svg" style="width:15px"/> ' +
+        arrDestinationData[i][2].distance_text +
+        '</span> <span> <img src="./assets/svg/timeIcon.svg" style="width:10px"/> ' +
+        arrDestinationData[i][2].time_text +
+        '</span> </div> </div> </div>'
+
+
+
+
+    
+      <div id="dealershipPopup">
+        <img src="XXXXXX" alt="dealership logo" style="width: 40px; height: 40px" />
+        <div style="margin-left: 5px; width: 200px;">
+          <div style="padding: 5px; word-wrap: break-word;">
+            <a href="XXXXXX" class="visitDealerSite">
+              <p style="width: inherit;"> Make It Extra Extra Extra Long </p>
+            </a>
           </div>
-          <div style=" display: flex; justify-content: space-between; padding-bottom: 5px; padding-left: 5px;padding-right: 5px;" >
-            <span style="font-size: 10px; padding: 5px; border-radius: 5px; background-color: lightgray">
-              TOTAL CARS: 20
-            </span>
+          <div style=" display: flex; justify-content: space-between; padding-bottom: 5px; padding-left: 5px;padding-right: 5px;">
+            <span style="font-size: 10px; padding: 5px; border-radius: 5px; background-color: lightgray">TOTAL CARS: 9999 </span>
+          </div>
+          <div style="font-weight: bold; display: flex; justify-content: end; margin-top: 3px; padding-top: 5px;  padding-left: 5px;padding-right: 5px; border-top: 1px solid gray">
+            <span style="margin-right:10px">
+              <img src="./assets/svg/distanceIcon.svg" style="width:15px" />distance_text </span>
             <span>
-              <a href="https://www.carmag.co.za/car-dealerships/limpopo" >website</a>
-            </span>
-            </div>
-          <div style=" display: flex; justify-content: end; padding-bottom: 10px;padding-bottom: 10px; padding-left: 5px;padding-right: 5px; background-color: gray;">
-            <span>12km</span>
-            <span>2mins</span>
+              <img src="./assets/svg/timeIcon.svg" style="width:10px" /> time_text </span>
           </div>
-          </div> 
         </div>
+      </div>
 
       <!-- 'div' below end of testParent -->
     </div>

@@ -51,10 +51,10 @@
 
          <div class="mapButtonsContainer" id="zoomOutButton_container">
             <div 
-            style="padding: 3px; background-color: gray; text-Align: center; color: white; font-size:small; border-radius: 3px"
+            style="padding: 3px; background-color: gray; text-Align: center; color: white; font-size: small"
               onclick="ShowRegionMarkers()"
             >
-              CONTROL
+            <span class="mapButtonText" >  CONTROL </span>
             </div>
             <hr style="opacity: 50%" />
             <div
@@ -63,12 +63,13 @@
               onclick="ShowRegionMarkers()"
             >
               <img
-                style="width: 15px; margin-right: 7px"
+                style="width: 17px; margin-right: 7px"
                 src="./assets/svg/regionsicon1.svg"
                 alt="regionsicon1.svg"
                 onclick="ShowRegionMarkers()"
                 />
-              REGION VIEW
+
+              <span class="mapButtonText" > RESET VIEW</span>
             </div> 
             <hr style="opacity: 50%" />
             <div
@@ -82,7 +83,7 @@
                 alt="userlocation3.svg"
                 onclick="userWantsLocation()"
                 />
-              NEAREST TO ME
+              DEALERSHIPS NEAR ME
             </div>
           </div>
         
